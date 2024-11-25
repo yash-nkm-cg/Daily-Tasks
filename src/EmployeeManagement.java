@@ -3,40 +3,84 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 
 public class EmployeeManagement {
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
         List<Employee> employees = new ArrayList<>();
-        employees.add(new Employee("Alice", "HR", 55000, LocalDate.of(1990, 1, 15)));
-        employees.add(new Employee("Alice", "Finance", 60000, LocalDate.of(1992, 3, 22)));
-        employees.add(new Employee("Alice", "HR", 55000, LocalDate.of(1991, 5, 18)));
-        employees.add(new Employee("Alice", "HR", 55000, LocalDate.of(1989, 12, 10))); // Edge case: Same name, dept, salary, earlier DOB
-        employees.add(new Employee("Bob", "Finance", 70000, LocalDate.of(1988, 11, 25)));
-        employees.add(new Employee("Bob", "HR", 60000, LocalDate.of(1990, 6, 12)));
-        employees.add(new Employee("Bob", "Finance", 70000, LocalDate.of(1990, 1, 30))); // Same salary, different DOB
-        employees.add(new Employee("Charlie", "HR", 60000, LocalDate.of(1989, 8, 10)));
-        employees.add(new Employee("Charlie", "Finance", 75000, LocalDate.of(1987, 2, 5)));
-        employees.add(new Employee("Charlie", "IT", 70000, LocalDate.of(1990, 12, 1)));
-        employees.add(new Employee("Alice", "IT", 62000, LocalDate.of(1991, 10, 20)));
-        employees.add(new Employee("Bob", "IT", 50000, LocalDate.of(1993, 7, 30)));
-        employees.add(new Employee("David", "Finance", 85000, LocalDate.of(1985, 4, 4)));
-        employees.add(new Employee("David", "HR", 85000, LocalDate.of(1986, 9, 15))); // Same name, salary, different dept
-        employees.add(new Employee("David", "Finance", 90000, LocalDate.of(1985, 4, 4))); // Higher salary, same name
-        employees.add(new Employee("Alice", "HR", 55000, LocalDate.of(1990, 1, 15))); // Duplicate for testing stability
-        employees.add(new Employee("Eve", "HR", 45000, LocalDate.of(1995, 7, 7)));
-        employees.add(new Employee("Eve", "HR", 55000, LocalDate.of(1994, 3, 3))); // Higher salary, same dept
-        employees.add(new Employee("Charlie", "IT", 70000, LocalDate.of(1990, 6, 1))); // Same name, dept, salary, earlier DOB
-        employees.add(new Employee("Charlie", "IT", 70000, LocalDate.of(1991, 1, 1))); // Same name, dept, salary, later DOB
+
+        // Using LocalDate directly for dates
+        employees.add(new Employee("Aarav", "IT", 62000, LocalDate.of(2023, 1, 21)));
+        employees.add(new Employee("Aarav", "HR", 55000, LocalDate.of(2023, 2, 15)));
+        employees.add(new Employee("Aditi", "IT", 75000, LocalDate.of(2023, 3, 10)));
+        employees.add(new Employee("Aditi", "FS", 70000, LocalDate.of(2023, 2, 20)));
+        employees.add(new Employee("Aditi", "FS", 60000, LocalDate.of(2023, 3, 15)));
+        employees.add(new Employee("Devansh", "HR", 52000, LocalDate.of(2023, 4, 5)));
+        employees.add(new Employee("Devansh", "FS", 52000, LocalDate.of(2023, 3, 25)));
+        employees.add(new Employee("Kavya", "IT", 58000, LocalDate.of(2023, 5, 5)));
+        employees.add(new Employee("Kavya", "IT", 65000, LocalDate.of(2023, 3, 10)));
+        employees.add(new Employee("Kavya", "HR", 47000, LocalDate.of(2023, 4, 1)));
+        employees.add(new Employee("Meera", "IT", 55000, LocalDate.of(2023, 5, 22)));
+        employees.add(new Employee("Meera", "HR", 45000, LocalDate.of(2023, 3, 18)));
+        employees.add(new Employee("Meera", "HR", 40000, LocalDate.of(2023, 5, 1)));
+        employees.add(new Employee("Rajesh", "FS", 67000, LocalDate.of(2023, 2, 11)));
+        employees.add(new Employee("Rajesh", "IT", 63000, LocalDate.of(2023, 2, 15)));
+        employees.add(new Employee("Sneha", "FS", 90000, LocalDate.of(2023, 1, 12)));
+        employees.add(new Employee("Sneha", "FS", 59000, LocalDate.of(2023, 4, 5)));
+        employees.add(new Employee("Sneha", "IT", 61000, LocalDate.of(2023, 3, 20)));
+        employees.add(new Employee("Yash", "HR", 49000, LocalDate.of(2023, 3, 30)));
+        employees.add(new Employee("Yash", "IT", 52000, LocalDate.of(2023, 5, 10)));
+
+
+
+
 
         for(Employee emp : employees) {
             System.out.println(emp);
         }
-        System.out.println();
-        System.out.println("----------------------------------------------------------");
-        Collections.sort(employees,new SortingFunction());
-        for(Employee emp : employees) {
-            System.out.println(emp);
+//        System.out.println();
+//        System.out.println("----------------------------------------------------------");
+//        Collections.sort(employees,new SortingFunction());
+
+        boolean flag = true;
+        while (flag){
+            List<Employee> temp = new ArrayList<>(employees);
+            System.out.println("Enter your options");
+            System.out.println("1. For sorting by Name");
+            System.out.println("2. For sorting by Name and Department");
+            System.out.println("3. For sorting by Name , Department and Salary");
+            System.out.println("4. Sort by every field");
+            int choice = sc.nextInt();
+            switch(choice){
+                case 1 : Collections.sort(temp,new SortingFunctionName());
+                    for(Employee emp : temp) {
+                        System.out.println(emp);
+                    }
+                    break;
+                case 2: Collections.sort(temp,new SortingFunctionDep());
+                    for(Employee emp : temp) {
+                        System.out.println(emp);
+                    }
+                    break;
+                case 3: Collections.sort(temp,new SortingFunctionSalary());
+                    for(Employee emp : temp) {
+                        System.out.println(emp);
+                    }
+                    break;
+                case 4: Collections.sort(temp,new SortingFunction());
+                    for(Employee emp : temp) {
+                        System.out.println(emp);
+                    }
+                    break;
+                case 5: flag = false;
+                        break;
+
+            }
+            System.out.println("END");
+
         }
     }
+
 
 }
